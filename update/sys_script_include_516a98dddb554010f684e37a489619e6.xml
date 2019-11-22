@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_58872_needit.WhenTaskCIChange</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>WhenTaskCIChange</name>
+        <script><![CDATA[var WhenTaskCIChange = Class.create();
+WhenTaskCIChange.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	CountSameClass: function(){
+		var ciRecord = new GlideRecord("cmdb_ci");
+		if (ciRecord.get(this.getParameter('sysparm_ciID'))) {
+			ciRecord.get(this.getParameter('sysparm_ciID'));
+			var classCi = ciRecord.sys_class_name;
+			//gs.info(" ALPHONSE => "+classCi);
+			var ci = new GlideAggregate("cmdb_ci");
+				ci.addQuery('sys_class_name',classCi);
+				ci.addAggregate('COUNT');
+				ci.query();
+				var classes = 0;
+				if(ci.next()) 
+					classes = ci.getAggregate('COUNT');
+			//gs.info(" ALPHONSE n=> "+classes);
+				
+		return classes;
+      }
+	},
+    type: 'WhenTaskCIChange'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-11-22 13:25:55</sys_created_on>
+        <sys_id>516a98dddb554010f684e37a489619e6</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>WhenTaskCIChange</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_include_516a98dddb554010f684e37a489619e6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-11-22 16:18:38</sys_updated_on>
+    </sys_script_include>
+</record_update>
